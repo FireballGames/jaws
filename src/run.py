@@ -1,6 +1,8 @@
 from game.game import Game
+from screens.main import MainScreen
+from globals import BLOCK
+from screens import Intro
 
-BLOCK = 8
 FPS = 32
 
 class Jaws(Game):
@@ -15,10 +17,12 @@ class Jaws(Game):
         #     'car': "res/racecar.png",
         # })
 
-        # self.intro_screen = Intro(self)
+        self.intro_screen = Intro(self)
         # self.main_screen = MainScreen(self)
         # self.pause_screen = Pause(self)
         # self.game_over_screen = Crash(self)
+
+        self.ms = MainScreen()
 
 
 def main():

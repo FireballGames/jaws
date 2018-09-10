@@ -1,35 +1,25 @@
+from game.game import Screen, STATE_QUIT, STATE_RUN
+from colors import WHITE, BLACK
+
+from globals import BLOCK
+from screens.main import MainScreen
+
+
 class Intro(Screen):
     def __init__(self, game):
         super().__init__(game, 15)
-        self.bg_color = WHITE
+        # self.bg_color = WHITE
 
-        green_button = GreenButton()
-        green_button.action = self.start
-
-        red_button = RedButton()
-        red_button.action = self.quit
-
-        self.buttons = [
-            green_button,
-            red_button,
-        ]
+        self.pos = (0, 4 * BLOCK)
+        self.ms = MainScreen()
 
     def draw(self, window):
         super().draw(window)
 
-        pos = WIDTH / 2, HEIGHT / 2
-        self.message(self.large_text, "Race", pos, BLACK)
-
-        for button in self.buttons:
-            button.draw(window)
-
-    def start(self):
-        self.game.state = STATE_RUN
-
-    def quit(self):
-        self.game.state = STATE_QUIT
+        window.blit(self.ms, self.pos)
 
 
+"""
 class MainScreen(Screen):
     def __init__(self, game):
         super().__init__(game, FPS)
@@ -148,3 +138,4 @@ class TutorialScreen(Screen):
         pygame.draw.rect(window, RED, (400, 400, 50, 25))
         pygame.draw.circle(window, GREEN, (150, 150), 75)
         pygame.draw.polygon(window, WHITE, ((25, 75), (76, 125), (250, 375)))
+"""
