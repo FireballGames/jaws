@@ -2,7 +2,7 @@ import os
 import pygame
 
 from globals import BLOCK, RES_ROOT
-from data.game_map import game_map
+from data.game_map import GAME_MAP
 from brody import Brody
 from tiles.barrier import Barrier
 
@@ -10,15 +10,22 @@ from tiles.barrier import Barrier
 MAIN_WIDTH = BLOCK * 32
 MAIN_HEIGHT = BLOCK * 20
 
+X_BOUNDS = (0, 32 * BLOCK)
+Y_BOUNDS = (0, 20 * BLOCK)
+
 
 class Field(pygame.sprite.Group):
     tiles = (None, Barrier)
 
-    def __init__(self, game_map):
+    def __init__(self, game_map, x):
         super().__init__()
-        self.load(game_map)
 
-    def load(self, game_map):
+        self.game_map = game_map
+        self.x = x
+
+    def load(self):
+        game_map = self.game_map[self.x]
+
         self.empty()
         for y, row in enumerate(game_map):
             for x, sprite_id in enumerate(row):
@@ -27,6 +34,37 @@ class Field(pygame.sprite.Group):
                     continue
 
                 self.add(sprite(x, y))
+
+    def slide(self, x, y):
+        self.x += x
+        if self.x < 0:
+            self.x = len(self.game_map) - 1
+        if self.x >= len(self.game_map):
+            self.x = 0
+        self.load()
+
+    def move_in(self, movement, sprite):
+        x, y = movement
+
+        new_rect = sprite.rect.move(x, y)
+        if new_rect.left < X_BOUNDS[0]:
+            new_rect.right = X_BOUNDS[1]
+            self.slide(-1, 0)
+            print("left")
+        if new_rect.right > X_BOUNDS[1]:
+            new_rect.left = X_BOUNDS[0]
+            self.slide(1, 0)
+            print("right")
+        if new_rect.top < Y_BOUNDS[0]:
+            new_rect.bottom = Y_BOUNDS[1]
+            self.slide(0, -1)
+            print("top")
+        if new_rect.bottom > Y_BOUNDS[1]:
+            new_rect.top = Y_BOUNDS[0]
+            self.slide(0, 1)
+            print("down")
+
+        return new_rect
 
 
 class MainScreen(pygame.Surface):
@@ -38,8 +76,8 @@ class MainScreen(pygame.Surface):
         self.brody = Brody()
         self.players = pygame.sprite.GroupSingle(self.brody)
 
-        self.game_map = game_map
-        self.field = Field(self.game_map)
+        self.field = Field(GAME_MAP, 12)
+        self.field.load()
 
         self.update()
 
