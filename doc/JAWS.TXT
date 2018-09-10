@@ -1,0 +1,166 @@
+JAWS
+(Alternative Software)
+
+
+A monstrous great white shark is terrorising the beaches of Amity
+Island. A grim discovery confirms the worst - he's out there and he's
+hungry. In a bid to save the island's failing tourist trade, Mayor
+Vaughn engages a professional shark killer from the mainland. Unfort-
+unately, en route, a fierce storm wrecks his boat, and the means of
+JAWS' destruction is scattered throughout the caves and chasms of a
+menacing sea world.
+
+
+THE GAME
+
+Brodie, Amity's Chief of Police, has the task of ridding the waters off
+the island of Jaws. He has persuaded Quint, a local fisherman, and
+Hooper, an oceanographic expert, to assist him. Hooper has also brought
+along three highly qualified divers to help with the equipment.
+
+Unfortunately, the equipment and weapon required to kill Jaws were lost
+in a reef off the coast, which the transporter vehicle hit and sank.
+Brodie's team of six has first to recover the four sections of the gun
+and the special bullets required to kill Jaws, from the horror-infested
+caverns below the reef. This achieved, one member of the party has to
+attempt to destroy Jaws, using the deadly weapon constructed from the
+parts found in the depths.
+
+The diver will be placed in the area where Jaws is prowling. He will be
+limited to 80 seconds of air and four Mega-Bullets. Each one will flash
+when it's ready for firing. A hit or miss will then be indicated on the
+control panel.
+
+Jaws will only be killed by your hitting him three times before your air
+runs out or you collide with Jaws or any sea creatures. If this fails,
+there will be no second chance!
+
+Spectrum 128K version only. Brodie's task is further complicated by
+Mayor Vaughn's short-sighted attitude. His insistence that, despite the
+risk of attack, the beaches should be kept open for the summer tourists,
+causes a real dilemma. If you close too many beaches for too long,
+you're likely to find yourself out of a job. However, if you ignore the
+warning signs, and too many swimmers perish, the mainland authorities
+will shut down the island. Acting on local information of shark
+sightings, together with the island's weather reports, you must try to
+keep as many beaches open as possible without loss of life. You must get
+to know your enemy, his movements, and the way his behaviour varies with
+the weather. Ignore this, and success will be hard.
+
+Underwater, things are complicated by the presence of various sea
+creatures, some of which are listed below.
+
+Flashing Sea Creatures - can only be shot with Mega-Bullets.
+
+Normal Sea Creatures - can be killed by shooting them one or more times.
+At the start of the game these creatures are fairly weak, but as time
+goes by they increase in strength and require more hits.
+
+Some hide more deadly creatures which are released when shot.
+
+Others hide treasures and useful pieces of equipment.
+
+
+Treasure & Equipment Icons
+
+[see JAWS1.GIF for icon pictures]
+
+* Invisible
+  Your underwater camera loses sight of your craft for a few seconds.
+  However, the sea creatures can still see you.
+* Half Speed 
+  Faulty power cells which cause a drain on the drive units and slow down
+  your craft for a short while.
+* Extra Diver
+  An additional crew member joins your team to assist you in your search
+  for the gun pieces.
+* Smart Bomb
+  These devices will kill any sea creatures on-screen by sending a
+  compression wave through the water.
+* Dangerous Walls
+  The walls of the caverns become dangerous for a short period of time.
+  This will be signalled by a warning sound.
+* Air
+  Your supply is continually depleting, so these give you the chance to
+  replenish your supply and remain submerged longer.
+* Fast Bullets
+  This device gives additional charge to the compressed air-gun on your
+  craft, propelling projectiles at increased speed while the charge lasts.
+* Gun Bits
+  There are four of these to be found.
+* Time Bomb
+  These are faulty concussion mines which will destroy the submersible.
+  Your only means of escape is to leave the screen before it explodes.
+* Mega-Bullets
+  These are high-power compressed air shells, which can penetrate the
+  thick skins of otherwise invulnerable sea creatures. Use them wisely as
+  they are in short supply. They are also needed to kill Jaws.
+* Treasure
+  These add to the collection of valuables stored on your ship.
+
+Other dangers facing your divers:
+- colliding with a sea creature
+- being shot by a sea creature
+- accidentally shooting an invulnerable sea creature
+- colliding with a deadly wall
+- colliding with Jaws
+- running out of air
+- shooting a gun part or a bomb
+- being on-screen when a bomb explodes
+
+At the start of a game divers are shielded and take more than one hit
+before being killed. After the shields have worn off, any of the above
+will kill a diver.
+
+
+A VERY SMALL SECTION OF THE UNDERSEA WORLD
+
+[see JAWS2.GIF]
+
+
+CONTROL PANEL LAYOUT
+
+[see JAWS3.GIF]
+
+
+GENERAL CONTROLS
+
+Z = left
+X = right
+K = up
+M = down
+L = fire
+P = pause (press Q to quit)
+
+Spectrum 128K version only:
+
+Map Mode:
+Left/right - select beach to open/close
+Fire - open/close beach
+Up - return to Surface Mode
+
+Surface Mode:
+Fire - launch diving vessel (if still on boat)
+Down - switch to Map Mode
+Space - toggle between Surface Undersea Mode
+(if diving vessel has already been launched)
+
+Underwater Mode:
+Space - toggle between Surface Undersea Mode
+
+
+LOADING INSTRUCTIONS
+
+Spectrum 48K/128K cassette:
+LOAD ""
+
+Spectrum +3 disc
+Insert and press RETURN
+
+
+CREDITS
+Jaws (tm) & (c) 1975 Universal Pictures. All rights reserved.
+Licensed by Merchandising Corporation of America, Inc.
+
+
+(c) Alternative Software Limited 1990
