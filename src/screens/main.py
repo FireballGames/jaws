@@ -44,7 +44,7 @@ class MainScreen(pygame.Surface):
         self.update()
 
     def update(self):
-        self.players.update()
+        self.players.update(self.field)
 
         self.fill(self.bg_color)
 

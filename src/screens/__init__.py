@@ -18,13 +18,13 @@ class Intro(Screen):
 
     def key_event(self, keys):
         if keys[pygame.K_RIGHT]:
-            self.ms.brody.move(1, 0)
+            self.ms.brody.move(1, 0, self.ms.field)
         if keys[pygame.K_LEFT]:
-            self.ms.brody.move(-1, 0)
+            self.ms.brody.move(-1, 0, self.ms.field)
         if keys[pygame.K_UP]:
-            self.ms.brody.move(0, -1)
+            self.ms.brody.move(0, -1, self.ms.field)
         if keys[pygame.K_DOWN]:
-            self.ms.brody.move(0, 1)
+            self.ms.brody.move(0, 1, self.ms.field)
         if keys[pygame.K_p]:
             # self.game.state = STATE_PAUSED
             pass
