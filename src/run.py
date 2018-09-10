@@ -5,6 +5,7 @@ from screens import Intro
 
 FPS = 32
 
+
 class Jaws(Game):
     caption = "Jaws"
     width = 32 * BLOCK

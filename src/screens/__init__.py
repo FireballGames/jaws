@@ -1,8 +1,11 @@
+import pygame
+
 from game.game import Screen, STATE_QUIT, STATE_RUN
 from colors import WHITE, BLACK
 
 from globals import BLOCK
 from screens.main import MainScreen
+from brody import Brody
 
 
 class Intro(Screen):
@@ -13,9 +16,23 @@ class Intro(Screen):
         self.pos = (0, 4 * BLOCK)
         self.ms = MainScreen()
 
+    def key_event(self, keys):
+        if keys[pygame.K_RIGHT]:
+            self.ms.brody.move(1, 0)
+        if keys[pygame.K_LEFT]:
+            self.ms.brody.move(-1, 0)
+        if keys[pygame.K_UP]:
+            self.ms.brody.move(0, -1)
+        if keys[pygame.K_DOWN]:
+            self.ms.brody.move(0, 1)
+        if keys[pygame.K_p]:
+            # self.game.state = STATE_PAUSED
+            pass
+
     def draw(self, window):
         super().draw(window)
 
+        self.ms.update()
         window.blit(self.ms, self.pos)
 
 
