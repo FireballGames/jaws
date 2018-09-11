@@ -1,17 +1,15 @@
 import pygame
 
-from game.game import Screen, STATE_QUIT, STATE_RUN
-from colors import WHITE, BLACK
+# from game.states import STATE_QUIT, STATE_RUN
+from game.screen import Screen
 
 from globals import BLOCK
 from screens.main import MainScreen
-from brody import Brody
 
 
 class Intro(Screen):
     def __init__(self, game):
         super().__init__(game, 15)
-        # self.bg_color = WHITE
 
         self.pos = (0, 4 * BLOCK)
         self.ms = MainScreen()

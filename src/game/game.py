@@ -1,16 +1,13 @@
 import pygame
 from pygame.locals import *
 
+from .screen import Screen
+from .states import *
+
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 1024
 SCREEN_CAPTION = "Game"
-
-STATE_QUIT = 0
-STATE_INTRO = 1
-STATE_RUN = 2
-STATE_PAUSED = 3
-STATE_GAME_OVER = 4
 
 
 class Game:

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from game.game import Game
 from screens.main import MainScreen
 from globals import BLOCK

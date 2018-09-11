@@ -1,6 +1,6 @@
 import pygame
 
-from .game import STATE_QUIT
+from .states import STATE_QUIT
 
 FPS = 30
 
