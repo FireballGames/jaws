@@ -11,6 +11,8 @@ class Brody(pygame.sprite.Sprite):
         self.width = 2 * BLOCK
         self.height = 2 * BLOCK
 
+        self.speed = 4
+
         # if self.image is None:
         #     self.image = pygame.image.load(os.path.join(RES_ROOT, "brody.png"))
         self.image = pygame.image.load(os.path.join(RES_ROOT, "brody.png"))
@@ -25,5 +27,5 @@ class Brody(pygame.sprite.Sprite):
             self.rect = old_rect
 
     def move(self, x, y, field):
-        self.movement = (x, y)
+        self.movement = (x * self.speed, y * self.speed)
         self.update(field)

@@ -3,7 +3,7 @@ from screens.main import MainScreen
 from globals import BLOCK
 from screens import Intro
 
-FPS = 32
+FPS = 64
 
 
 class Jaws(Game):
