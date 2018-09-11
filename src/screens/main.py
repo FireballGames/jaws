@@ -13,7 +13,6 @@ MAIN_HEIGHT = BLOCK * 20
 X_BOUNDS = (0, 32 * BLOCK)
 Y_BOUNDS = (0, 20 * BLOCK)
 
-
 class Field(pygame.sprite.Group):
     tiles = (None, Barrier)
 
@@ -22,12 +21,14 @@ class Field(pygame.sprite.Group):
 
         self.game_map = game_map
         self.x = x
+        self.y = 0
 
     def load(self):
-        game_map = self.game_map[self.x]
+        level_row = self.game_map[self.y]
+        level_map = level_row[self.x]
 
         self.empty()
-        for y, row in enumerate(game_map):
+        for y, row in enumerate(level_map):
             for x, sprite_id in enumerate(row):
                 sprite = self.tiles[sprite_id]
                 if sprite is None:
@@ -37,10 +38,21 @@ class Field(pygame.sprite.Group):
 
     def slide(self, x, y):
         self.x += x
+
         if self.x < 0:
-            self.x = len(self.game_map) - 1
-        if self.x >= len(self.game_map):
+            self.x = len(self.game_map[self.y]) - 1
+        if self.x >= len(self.game_map[self.y]):
             self.x = 0
+
+        self.y += y
+        print(self.y)
+        if self.y < 0:
+            self.y = 0
+        if self.y >= len(self.game_map):
+            print("DOWN")
+            self.y = len(self.game_map) - 1
+
+        print((self.x, self.y))
         self.load()
 
     def move_in(self, movement, sprite):
