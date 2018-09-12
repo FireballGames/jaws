@@ -47,4 +47,4 @@ class Tile(pygame.sprite.Sprite):
         self.rect = pygame.Rect((x * BLOCK, y * BLOCK, self.width, self.height))
         self.image = pygame.Surface(rect.size).convert()
         self.image.blit(image, (0, 0), rect)
-        # self.image.set_alpha(128)
+        self.image.set_alpha(196)

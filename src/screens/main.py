@@ -118,7 +118,7 @@ class MainScreen(pygame.Surface):
             MAIN_WIDTH,
             MAIN_HEIGHT
         )
-        self.blit(self.background.image, (0, 0), rect)
+        self.blit(self.background.image, (0, -1), rect)
 
         self.field.draw(self)
         self.players.draw(self)
