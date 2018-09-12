@@ -14,23 +14,26 @@ class Intro(Screen):
         self.pos = (0, 4 * BLOCK)
         self.ms = MainScreen()
 
+        self.paused = False
+
     def key_event(self, keys):
-        if keys[pygame.K_RIGHT]:
-            self.ms.brody.move(1, 0, self.ms.field)
-        if keys[pygame.K_LEFT]:
-            self.ms.brody.move(-1, 0, self.ms.field)
-        if keys[pygame.K_UP]:
-            self.ms.brody.move(0, -1, self.ms.field)
-        if keys[pygame.K_DOWN]:
-            self.ms.brody.move(0, 1, self.ms.field)
+        if not self.paused:
+            if keys[pygame.K_RIGHT]:
+                self.ms.brody.move(1, 0, self.ms.field)
+            if keys[pygame.K_LEFT]:
+                self.ms.brody.move(-1, 0, self.ms.field)
+            if keys[pygame.K_UP]:
+                self.ms.brody.move(0, -1, self.ms.field)
+            if keys[pygame.K_DOWN]:
+                self.ms.brody.move(0, 1, self.ms.field)
         if keys[pygame.K_p]:
-            # self.game.state = STATE_PAUSED
-            pass
+            self.paused = not self.paused
 
     def draw(self, window):
         super().draw(window)
 
-        self.ms.update()
+        if not self.paused:
+            self.ms.update()
         window.blit(self.ms, self.pos)
 
 
