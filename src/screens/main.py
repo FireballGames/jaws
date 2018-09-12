@@ -4,8 +4,8 @@ import pygame
 from globals import BLOCK, RES_ROOT
 from data.game_map import GAME_MAP
 from brody import Brody
-from tiles.barrier import Barrier
-
+from tiles.barrier import Tile
+from tiles.background import Background
 
 MAIN_WIDTH = BLOCK * 32
 MAIN_HEIGHT = BLOCK * 20
@@ -13,9 +13,8 @@ MAIN_HEIGHT = BLOCK * 20
 X_BOUNDS = (0, 32 * BLOCK)
 Y_BOUNDS = (0, 20 * BLOCK)
 
-class Field(pygame.sprite.Group):
-    tiles = (None, Barrier)
 
+class Field(pygame.sprite.Group):
     def __init__(self, game_map, x):
         super().__init__()
 
@@ -30,11 +29,26 @@ class Field(pygame.sprite.Group):
         self.empty()
         for y, row in enumerate(level_map):
             for x, sprite_id in enumerate(row):
-                sprite = self.tiles[sprite_id]
-                if sprite is None:
+                """
+                i = x % 4
+                j = y % 2
+                print("SPRITE", i, j)
+                if sprite_id == 1:
+                    if not j:
+                        print(len(TILES), j, 8 + i)
+                        sprite_id = 8 + i
+                    else:
+                        print(len(TILES), j, 13 + i)
+                        sprite_id = 13 + i
+                elif sprite_id == 2:
+                    sprite_id = 2 + i
+                    pass
+                """
+                if sprite_id == " ":
                     continue
 
-                self.add(sprite(x, y))
+                sprite = Tile(x, y, sprite_id)
+                self.add(sprite)
 
     def slide(self, x, y):
         self.x += x
@@ -84,6 +98,7 @@ class MainScreen(pygame.Surface):
         super().__init__((MAIN_WIDTH, MAIN_HEIGHT))
 
         self.bg_color = (0, 0, 0)
+        self.background = Background()
 
         self.brody = Brody()
         self.players = pygame.sprite.GroupSingle(self.brody)
@@ -97,6 +112,13 @@ class MainScreen(pygame.Surface):
         self.players.update(self.field)
 
         self.fill(self.bg_color)
+        rect = (
+            self.field.x * MAIN_WIDTH,
+            self.field.y * MAIN_HEIGHT,
+            MAIN_WIDTH,
+            MAIN_HEIGHT
+        )
+        self.blit(self.background.image, (0, 0), rect)
 
         self.field.draw(self)
         self.players.draw(self)

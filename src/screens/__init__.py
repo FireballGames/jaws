@@ -1,8 +1,7 @@
 import pygame
 
-from game.screen import Screen
 # from game.states import STATE_QUIT, STATE_RUN
-from colors import WHITE, BLACK
+from game.screen import Screen
 
 from globals import BLOCK
 from screens.main import MainScreen
