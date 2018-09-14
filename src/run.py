@@ -2,21 +2,28 @@
 """
 Used to run game
 """
-from game.game import Game
-from screens.main import MainScreen
 from globals import BLOCK, CAPTION, FPS
+from game.game import Game, PATH
 from screens import Intro
-
+from screens.cutscene import CutScene
+from screens.main import MainScreen
 
 
 class Jaws(Game):
-    init_scene = 'main'
+    init_scene = 'logo'
 
-    width = 32 * BLOCK
-    height = 24 * BLOCK
+    width = 640 # 32 * BLOCK
+    height = 480 # 24 * BLOCK
 
     def __init__(self):
         super().__init__(CAPTION, (self.width, self.height), FPS)
+
+        from resource.font import FontResources
+        FontResources.load(PATH, self.size)
+
+        from resource.cutscenes import logo_cutscene
+
+        self.scene_data = logo_cutscene
 
         # self.main_screen = MainScreen(self)
         # self.pause_screen = Pause(self)
@@ -24,14 +31,17 @@ class Jaws(Game):
 
         self.ms = MainScreen()
 
-        # self.add_scene('intro', Screen(self))
+        # Logo and title screens
+        self.add_scene('logo', CutScene(self))
+        self.add_scene('intro', CutScene(self))
+        self.add_scene('title', CutScene(self))
+
         self.add_scene('main', Intro(self))
         # self.add_scene('main', Screen(self))
         # self.add_scene('pause', Screen(self))
         # self.add_scene('game_over', Screen(self))
 
         """
-        # Logo and title screens
         logocutscene = CutScene(self.director, self.screen_size)
         self.director.add_scene('logocutscene', logocutscene)
 

@@ -1,11 +1,17 @@
+import os
+import sys
 import pygame
 
 from .states import *
 
+from resource import JawsResources
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 1024
 SCREEN_CAPTION = "Game"
+
+
+PATH = os.path.abspath(os.path.dirname(sys.argv[0]))
 
 
 class Director:
@@ -79,6 +85,7 @@ class Director:
         self.scenes[name] = scene
 
     def set_scene(self, name, *options):
+        print(name, self.scenes)
         self.scene = self.scenes.get(name)
 
         if name is None:
@@ -92,6 +99,7 @@ class Director:
 
 class Game(Director):
     init_scene = None
+    scene_data = []
 
     def __init__(self, caption=SCREEN_CAPTION, size=(SCREEN_WIDTH, SCREEN_HEIGHT), fps=30):
         self.size = size
@@ -109,13 +117,13 @@ class Game(Director):
 
         # Load resources
         # self.path = path
+        JawsResources.load(PATH, self.size)
         # self.resources = Resources(self.path, self.screen_size)
         # pygame.display.set_icon(Resource.image('icon'))
 
     def play(self):
         # Start up director
-        self.set_scene(self.init_scene)
-        # self.set_scene(self.init_scene, *self.resources.logocutscene_data)
+        self.set_scene(self.init_scene, *self.scene_data)
 
         super().play()
 

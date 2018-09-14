@@ -6,6 +6,8 @@ from game.screen import Screen
 from globals import BLOCK
 from screens.main import MainScreen
 
+from resource import JawsResources
+
 
 class Intro(Screen):
     def __init__(self, game):
@@ -37,6 +39,8 @@ class Intro(Screen):
         if not self.paused:
             self.ms.update()
         window.blit(self.ms, self.pos)
+
+        window.blit(JawsResources.backdrop, (0, 0))
 
 
 """
