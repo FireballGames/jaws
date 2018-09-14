@@ -9,7 +9,7 @@ from screens.main import MainScreen
 
 class Intro(Screen):
     def __init__(self, game):
-        super().__init__(game, 15)
+        super().__init__(game)
 
         self.pos = (0, 4 * BLOCK)
         self.ms = MainScreen()
@@ -17,6 +17,8 @@ class Intro(Screen):
         self.paused = False
 
     def key_event(self, keys):
+        super().key_event(keys)
+
         if not self.paused:
             if keys[pygame.K_RIGHT]:
                 self.ms.brody.move(1, 0, self.ms.field)
