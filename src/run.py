@@ -4,42 +4,41 @@ Used to run game
 """
 from globals import BLOCK, CAPTION, FPS
 from game.game import Game, PATH
-from screens import Intro
+
+from screens import Intro, Title
 from screens.cutscene import CutScene
 from screens.main import MainScreen
+
+from resource.cutscenes import LogoResource
 
 
 class Jaws(Game):
     init_scene = 'logo'
 
-    width = 640 # 32 * BLOCK
-    height = 480 # 24 * BLOCK
+    width = 640  # 32 * BLOCK
+    height = 480  # 24 * BLOCK
 
     def __init__(self):
         super().__init__(CAPTION, (self.width, self.height), FPS)
 
-        from resource.font import FontResources
-        FontResources.load(PATH, self.size)
-
-        from resource.cutscenes import logo_cutscene
-
-        self.scene_data = logo_cutscene
-
-        # self.main_screen = MainScreen(self)
-        # self.pause_screen = Pause(self)
-        # self.game_over_screen = Crash(self)
+        resource = LogoResource()
+        self.scene_data = resource.data()
 
         self.ms = MainScreen()
 
         # Logo and title screens
         self.add_scene('logo', CutScene(self))
         self.add_scene('intro', CutScene(self))
-        self.add_scene('title', CutScene(self))
+        self.add_scene('title', Title(self))
 
         self.add_scene('main', Intro(self))
         # self.add_scene('main', Screen(self))
         # self.add_scene('pause', Screen(self))
         # self.add_scene('game_over', Screen(self))
+
+        # self.main_screen = MainScreen(self)
+        # self.pause_screen = Pause(self)
+        # self.game_over_screen = Crash(self)
 
         """
         logocutscene = CutScene(self.director, self.screen_size)

@@ -1,8 +1,9 @@
 import pygame
 
 from game.screen import Screen
-from resource import JawsResources
-from .fade import Fade
+from resource.jaws import JawsResources
+from resource.cutscenes import CutsceneResource, IntroResource
+from controls.fade import Fade
 
 
 # class CutScene(SizedScene):
@@ -30,6 +31,9 @@ class CutScene(Screen):
         self.ani_to = 0
         self.ani_frame1 = 0
         self.ani_frame2 = 0
+
+        self.resource = CutsceneResource()
+        self.intro = IntroResource()
 
     def panel(self):
         panel = pygame.Surface(self.game.size)
@@ -100,6 +104,7 @@ class CutScene(Screen):
         if self.fade.finished_out:  # next cut
             self.step += 1
             if self.step == len(self.sequence):
+                print("Next:", self.next_scene_type, self.next_scene_options)
                 self.game.set_scene(self.next_scene_type, *self.next_scene_options)
             else:
                 self.fade.reset()
@@ -119,9 +124,7 @@ class CutScene(Screen):
 
     @property
     def surfaces(self):
-        # return JawsResources.cutscenesurfs
-        from resource.cutscenes import cutscene_surfaces
-        return cutscene_surfaces
+        return self.resource.surfaces
 
     def render_animation(self, screen):
         raise NotImplementedError("render_animation abstract method must be defined in subclass.")
@@ -142,35 +145,34 @@ class CutScene(Screen):
 
         # check for extra animation render in intro seq
         if len(self.current_step[1]) > 0:
-            from resource.cutscenes import intro_cutscene_sprites, cutscene_surfaces
             if self.current_step[1][0] == 'introtxt_001':
 
-                tile = intro_cutscene_sprites['water'][self.ani_frame1]
+                tile = self.intro.sprites['water'][self.ani_frame1]
                 tile_pos = list(tile)
                 tile_pos[2] = tile[2] - 7
-                surface.blit(cutscene_surfaces['intro_sprites'], (168 - 8, 359 + 4 * 7), tile)
-                surface.blit(cutscene_surfaces['intro_sprites'], (168 + 56 - 8, 359 + 4 * 7), tile)
-                surface.blit(cutscene_surfaces['intro_sprites'], (168 + 2 * 56 - 8, 359 + 4 * 7), tile_pos)
+                surface.blit(self.surfaces['intro_sprites'], (168 - 8, 359 + 4 * 7), tile)
+                surface.blit(self.surfaces['intro_sprites'], (168 + 56 - 8, 359 + 4 * 7), tile)
+                surface.blit(self.surfaces['intro_sprites'], (168 + 2 * 56 - 8, 359 + 4 * 7), tile_pos)
 
-                tile = intro_cutscene_sprites['man'][self.ani_frame2]
-                surface.blit(cutscene_surfaces['intro_sprites'], (166 + 3 * 7 * 8, 359 - 7 * 7), tile)
+                tile = self.intro.sprites['man'][self.ani_frame2]
+                surface.blit(self.surfaces['intro_sprites'], (166 + 3 * 7 * 8, 359 - 7 * 7), tile)
 
-                tiles = intro_cutscene_sprites['penguin'][self.ani_frame2]
-                surface.blit(cutscene_surfaces['intro_sprites'], (166 - 2 * 7 * 8, 359 - 7 * 7), tile)
+                tiles = self.intro.sprites['penguin'][self.ani_frame2]
+                surface.blit(self.surfaces['intro_sprites'], (166 - 2 * 7 * 8, 359 - 7 * 7), tile)
 
             if self.current_step[1][0] == 'introtxt_005':
-                tile = intro_cutscene_sprites['sub'][0]
+                tile = self.intro.sprites['sub'][0]
                 if self.ani_frame2 == 0:
-                    surface.blit(cutscene_surfaces['intro_sprites'], (168 + 7, 359 - 6 * 7), tile)
+                    surface.blit(self.surfaces['intro_sprites'], (168 + 7, 359 - 6 * 7), tile)
                 else:
-                    surface.blit(cutscene_surfaces['intro_sprites'], (168 + 7, 359 - 5 * 7), tile)
+                    surface.blit(self.surfaces['intro_sprites'], (168 + 7, 359 - 5 * 7), tile)
 
-                tile = intro_cutscene_sprites['water'][self.ani_frame1]
+                tile = self.intro.sprites['water'][self.ani_frame1]
                 tile_pos = list(tile)
                 tile_pos[2] = tile_pos[2] - 7
-                surface.blit(cutscene_surfaces['intro_sprites'], (168 - 8, 359 + 4 * 7), tile)
-                surface.blit(cutscene_surfaces['intro_sprites'], (168 + 56 - 8, 359 + 4 * 7), tile)
-                surface.blit(cutscene_surfaces['intro_sprites'], (168 + 2 * 56 - 8, 359 + 4 * 7), tile_pos)
+                surface.blit(self.surfaces['intro_sprites'], (168 - 8, 359 + 4 * 7), tile)
+                surface.blit(self.surfaces['intro_sprites'], (168 + 56 - 8, 359 + 4 * 7), tile)
+                surface.blit(self.surfaces['intro_sprites'], (168 + 2 * 56 - 8, 359 + 4 * 7), tile_pos)
 
     def render_text(self, screen):
         text_data = self.current_step[1][self.text_step]

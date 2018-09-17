@@ -1,15 +1,11 @@
-import os
-import sys
 import pygame
-
-from . import JawsResources
 
 
 class GameFont:
     keys = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ? = abcdefghijklmnopqrstuvwxyz+,-.!"#$%&`():')
 
-    def __init__(self, filename, size):
-        self.image = JawsResources.load_image(os.path.join('img', filename))
+    def __init__(self, image, size):
+        self.image = image
 
         self.rects = dict()
         for i in range(8):
@@ -77,22 +73,3 @@ class GameFont:
                 line += 1
                 line_dist = 0
         return surface
-
-
-class FontResources(JawsResources):
-    gold = None
-    gold_small = None
-    red = None
-    red_small = None
-    green = None
-
-    @classmethod
-    def load(cls, path, screen_size):
-        super().load(path, screen_size)
-
-        # Fonts and text
-        cls.gold = GameFont('broddmin_5x10_shad_yellow_2x.png', (10, 20))
-        cls.gold_small = GameFont('broddmin_5x10_shad_yellow_1x.png', (5, 10))
-        cls.red = GameFont('broddmin_5x10_shad_red_2x.png', (10, 20))
-        cls.red_small = GameFont('broddmin_5x10_shad_red_1x.png', (5, 10))
-        cls.green = GameFont('broddmin_5x10_shad_green_2x.png', (10, 20))

@@ -1,7 +1,7 @@
 import os
 import pygame
 
-from .font import FontResources
+from .jaws import JawsResources
 
 
 PATH = os.path.abspath(os.path.join("res"))
@@ -13,21 +13,43 @@ def load_image(filename):
     return image
 
 
+class SceneResource:
+    sequence = []
+    sound = None
+    next = None
+    next_data = []
+
+    def __init__(self):
+        self.surfaces = dict()
+        self.sprites = dict()
+
+    def data(self):
+        return [
+            self.sequence,
+            self.sound,
+            self.next,
+            self.next_data
+        ]
+
+
 ####################
 # Title Screen Stuff
+class TitleResource(SceneResource):
+    def __init__(self):
+        super().__init__()
+        screen_size = 240
 
-title_surfaces = dict()
-title_surfaces['bg'] = load_image('titletext.png')
+        self.surfaces['bg'] = load_image('titletext.png')
 
-screen_size = 240
-
-title_surfaces['newgame_gold'] = FontResources.gold.render("New Game", screen_size, 20, align='vcentre')
-title_surfaces['continue_gold'] = FontResources.gold.render("Continue", screen_size, 20, align='vcentre')
-title_surfaces['newgame_red'] = FontResources.gold.render("New Game", screen_size, 20, align='vcentre')
-title_surfaces['continue_red'] = FontResources.gold.render("Continue", screen_size, 20, align='vcentre')
+        self.surfaces['newgame_gold'] = JawsResources.fonts.gold.render("New Game", screen_size, 20, align='vcentre')
+        self.surfaces['continue_gold'] = JawsResources.fonts.gold.render("Continue", screen_size, 20, align='vcentre')
+        self.surfaces['newgame_red'] = JawsResources.fonts.gold.render("New Game", screen_size, 20, align='vcentre')
+        self.surfaces['continue_red'] = JawsResources.fonts.gold.render("Continue", screen_size, 20, align='vcentre')
 
 ####################
 # Pause Screen Stuff
+class PauseResource(SceneResource):
+    pass
 
 # self.pause_spritedata = {}
 # self.pause_spritedata['resume_on'] = gamefontred.RenderSentence("Resume Game", 640, 20, align='vcentre')
@@ -42,63 +64,106 @@ title_surfaces['continue_red'] = FontResources.gold.render("Continue", screen_si
 #     if type(surf) == type(True):
 #         raise NotImplementedError("Surface render failed data: %s" % (key))
 
+
+class IntroResource(SceneResource):
+    sequence = [
+        ['intro_backdrop', ['introtxt_001', 'introtxt_002', 'introtxt_003', 'introtxt_004']],
+        ['intro_backdrop', ['introtxt_005', 'introtxt_006']]
+    ]
+    sound = 'wind_effect'
+    next = 'main'
+    next_data = [True, "level_explore_001"]
+
+    def __init__(self):
+        super().__init__()
+
+        self.sprites['water'] = [
+            (7, 7, 56, 56),
+            (63 + 7, 7, 56, 56),
+            (119 + 14, 7, 56, 56),
+            (175 + 21, 7, 56, 56),
+            (231 + 28, 7, 56, 56)
+        ]
+        self.sprites['penguin'] = [
+            (77, 70, 56, 63),
+            (77, 140, 56, 63)
+        ]
+        self.sprites['man'] = [
+            (7, 70, 56, 63),
+            (7, 154, 56, 63)
+        ]
+        self.sprites['sub'] = [
+            (119 + 21, 63, 126, 98)
+        ]
+
+
 ####################
 # Cutscene Stuff
 
-# Cutscene Surfaces
-cutscene_surfaces = dict()
 
-# Logo
-cutscene_surfaces['team_chimera'] = load_image('team_chimera_5x.png')
+class CutsceneResource(SceneResource):
+    def __init__(self):
+        super().__init__()
 
-# Intro cutscenes
-cutscene_surfaces['intro_backdrop'] = load_image('intro_backdrop_7x.png')
-cutscene_surfaces['intro_sprites'] = load_image('intro_sprites_7x.png')
+        # Logo
+        self.surfaces['team_chimera'] = load_image('team_chimera_5x.png')
 
-intro_cutscene_sprites = dict()
-intro_cutscene_sprites['water'] = [(7, 7, 56, 56), (63 + 7, 7, 56, 56), (119 + 14, 7, 56, 56),
-                                            (175 + 21, 7, 56, 56), (231 + 28, 7, 56, 56)]
-intro_cutscene_sprites['penguin'] = [(77, 70, 56, 63), (77, 140, 56, 63)]
-intro_cutscene_sprites['man'] = [(7, 70, 56, 63), (7, 154, 56, 63)]
-intro_cutscene_sprites['sub'] = [(119 + 21, 63, 126, 98)]
+        # Intro cutscenes
+        self.surfaces['intro_backdrop'] = load_image('intro_backdrop_7x.png')
+        self.surfaces['intro_sprites'] = load_image('intro_sprites_7x.png')
 
-cutscene_surfaces['introtxt_001'] = FontResources.gold.render(
-    "For years I had lived upon the glacier, sustaining myself by fishing through a hole in the ice.",
-    600,
-    60,
-    align='vcentre'
-)
-cutscene_surfaces['introtxt_002'] = FontResources.gold.render(
-    "The sea below the ice must have been a treasure trove of life, for I had caught many a tasty tuna, scrumptious salmon and heavenly haddock.",
-    600,
-    60,
-    align='vcentre'
-)
-cutscene_surfaces['introtxt_003'] = FontResources.gold.render(
-    "But fish were not all I caught: on my line I often hauled up strange artifacts and mysterious mechanisms from the icy depths.",
-    600,
-    60,
-    align='vcentre'
-)
-cutscene_surfaces['introtxt_004'] = FontResources.gold.render(
-    "I pondered over the origins of these strange objects. One day curiosity got the better of me.",
-    600,
-    60,
-    align='vcentre'
-)
+        self.surfaces['introtxt_001'] = JawsResources.fonts.gold.render(
+            "For years I had lived upon the glacier, sustaining myself by fishing through a hole in the ice.",
+            600,
+            60,
+            align='vcentre'
+        )
+        self.surfaces['introtxt_002'] = JawsResources.fonts.gold.render(
+            "The sea below the ice must have been a treasure trove of life, for I had caught many a tasty tuna, scrumptious salmon and heavenly haddock.",
+            600,
+            60,
+            align='vcentre'
+        )
+        self.surfaces['introtxt_003'] = JawsResources.fonts.gold.render(
+            "But fish were not all I caught: on my line I often hauled up strange artifacts and mysterious mechanisms from the icy depths.",
+            600,
+            60,
+            align='vcentre'
+        )
+        self.surfaces['introtxt_004'] = JawsResources.fonts.gold.render(
+            "I pondered over the origins of these strange objects. One day curiosity got the better of me.",
+            600,
+            60,
+            align='vcentre'
+        )
 
-cutscene_surfaces['introtxt_005'] = FontResources.gold.render(
-    "I built a submarine that would take me under the ice. I had to get in there and find out where these treasures had come from.",
-    600,
-    60,
-    align='vcentre'
-)
-cutscene_surfaces['introtxt_006'] = FontResources.gold.render(
-    "Who can say what dangers I might encounter there? If my fate is to be a watery grave, then at least I`ll die knowing.",
-    600,
-    60,
-    align='vcentre'
-)
+        self.surfaces['introtxt_005'] = JawsResources.fonts.gold.render(
+            "I built a submarine that would take me under the ice. I had to get in there and find out where these treasures had come from.",
+            600,
+            60,
+            align='vcentre'
+        )
+        self.surfaces['introtxt_006'] = JawsResources.fonts.gold.render(
+            "Who can say what dangers I might encounter there? If my fate is to be a watery grave, then at least I`ll die knowing.",
+            600,
+            60,
+            align='vcentre'
+        )
+
+
+class LogoResource(CutsceneResource):
+    sequence = [
+        ['team_chimera', []],
+    ]
+    sound = None
+    next = 'intro'
+    next_data = [
+        IntroResource.sequence,
+        IntroResource.sound,
+        'title',
+        []
+    ]
+
 
 """
         # In-between level cutscenes
@@ -227,35 +292,6 @@ cutscene_surfaces['introtxt_006'] = FontResources.gold.render(
 # Actual cutscene content
 
 """
-introcutscene_data = [
-    [
-        ['intro_backdrop',['introtxt_001']]
-    ],
-    'none',
-    'titlescene',
-    []
-]
-introcutscene_data = [
-    [
-        ['intro_backdrop',['introtxt_001','introtxt_002','introtxt_003','introtxt_004']],
-        ['intro_backdrop',['introtxt_005','introtxt_006']]
-    ],
-    'wind_effect',
-    'maingame',
-    [True, "level_explore_001"]
-]
-"""
-intro_cutscene = [
-    [
-        ['intro_backdrop', ['introtxt_001', 'introtxt_002', 'introtxt_003', 'introtxt_004']],
-        ['intro_backdrop', ['introtxt_005', 'introtxt_006']]
-    ],
-    'wind_effect',
-    'title',
-    []
-]
-
-"""
 self.cutscene1_data = [[['cut1_backdrop', ['cut1txt_001', 'cut1txt_002', 'cut1txt_003']], \
                    ['cut1_backdrop_sil', ['cut1txt_004', 'cut1txt_005']]], 'none', 'maingame',
                   [True, "level_sharksandmines_004"]]
@@ -277,41 +313,3 @@ self.cutscene4_data = [[['cut4_backdrop',
                      'cut4txt_007', 'cut4txt_008', 'cut4txt_009', 'cut4txt_010', 'cut4txt_011', 'cut4txt_012',
                      'cut4txt_013', 'cut4txt_014', 'cut4txt_015']]], 'none', 'cutscene5', self.cutscene5_data]
 """
-
-"""
-logocutscene_data = [
-    [
-        [
-            'team_chimera',
-            []
-        ]
-    ],
-    'none',
-    'titlescene',
-    []
-]
-
-logocutscene_data = [
-    [
-        [
-            'team_chimera',
-            []
-        ]
-    ],
-    'none',
-    'maingame',
-    [
-        True,
-        "level_explore_001"
-    ]
-]
-"""
-logo_cutscene = [
-    [
-        ['team_chimera', []],
-    ],
-    None,
-    'intro',
-    intro_cutscene
-]
-

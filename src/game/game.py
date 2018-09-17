@@ -4,7 +4,7 @@ import pygame
 
 from .states import *
 
-from resource import JawsResources
+from resource.jaws import JawsResources
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 1024
@@ -86,11 +86,12 @@ class Director:
 
     def set_scene(self, name, *options):
         print(name, self.scenes)
-        self.scene = self.scenes.get(name)
+        scene = self.scenes.get(name)
 
-        if name is None:
+        if scene is None:
             self.quit()
             return
+        self.scene = scene
         self.scene.load(*options)
 
     def quit(self):

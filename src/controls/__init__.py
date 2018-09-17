@@ -1,3 +1,4 @@
+"""
 class Thing:
     def __init__(self):
         self.x = random.randrange(WIDTH)
@@ -25,8 +26,10 @@ class Thing:
             # self.speed += 1
             self.width += (self.count * 1.2)
             self.reset()
+"""
 
 
+"""
 class Car:
     LEFT = 0
     RIGHT = 1
@@ -66,8 +69,10 @@ class Car:
 
     def game_over(self):
         self.state = self.STATE_GAME_OVER
+"""
 
 
+"""
 class GreenButton(Button):
     def __init__(self):
         super().__init__()
@@ -96,4 +101,4 @@ class PauseButton(Button):
 
         self.hover_color = BRIGHT_GREEN
         self.color = GREEN
-
+"""
