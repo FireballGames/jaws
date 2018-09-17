@@ -223,7 +223,7 @@ class JawsResources(Resources):
         cls.controls['L'] = pygame.K_LEFT
         cls.controls['U'] = pygame.K_UP
         cls.controls['D'] = pygame.K_DOWN
-        cls.controls['Fire'] = pygame.K_z
+        cls.controls['Fire'] = pygame.K_SPACE
 
         ####################
         # Though Bubble Data
