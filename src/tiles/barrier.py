@@ -1,7 +1,7 @@
 import os
 import pygame
 
-from globals import BLOCK, RES_ROOT
+from config.globals import BLOCK, RES_ROOT
 
 
 class Tile(pygame.sprite.Sprite):

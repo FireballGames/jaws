@@ -7,7 +7,7 @@ from game.screen import Screen
 from controls.fade import Fade
 from controls.menu import Menu, MenuItem
 
-from globals import BLOCK
+from config.globals import BLOCK
 from screens.main import MainScreen
 
 from resource.jaws import JawsResources

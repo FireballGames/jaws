@@ -1,7 +1,7 @@
 import os
 import pygame
 
-from globals import RES_ROOT
+from config.globals import RES_ROOT
 
 
 class Background(pygame.sprite.Sprite):

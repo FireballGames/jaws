@@ -1,9 +1,8 @@
-import os
 import pygame
 
-from globals import BLOCK, RES_ROOT
+from config.globals import BLOCK
 from data.game_map import GAME_MAP
-from brody import Brody
+from sprites.brody import Brody
 from tiles.barrier import Tile
 from tiles.background import Background
 
