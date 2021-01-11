@@ -1,7 +1,7 @@
 import os
 import pygame
 
-from config.globals import BLOCK, RES_ROOT
+from config import BARRIER_WIDTH, BARRIER_HEIGHT, RES_ROOT
 
 
 class Tile(pygame.sprite.Sprite):
@@ -36,15 +36,15 @@ class Tile(pygame.sprite.Sprite):
     def __init__(self, x, y, code):
         super().__init__()
 
-        self.width = BLOCK
-        self.height = BLOCK
+        self.width = BARRIER_WIDTH
+        self.height = BARRIER_HEIGHT
 
         offset = self.offsets[code]
 
         image = pygame.image.load(os.path.join(RES_ROOT, "tiles", self.filename))
-        rect = pygame.Rect((offset[0] * BLOCK, offset[1] * BLOCK, self.width, self.height))
+        rect = pygame.Rect((offset[0] * BARRIER_WIDTH, offset[1] * BARRIER_HEIGHT, self.width, self.height))
 
-        self.rect = pygame.Rect((x * BLOCK, y * BLOCK, self.width, self.height))
+        self.rect = pygame.Rect((x * BARRIER_WIDTH, y * BARRIER_HEIGHT, self.width, self.height))
         self.image = pygame.Surface(rect.size).convert()
         self.image.blit(image, (0, 0), rect)
         self.image.set_alpha(196)

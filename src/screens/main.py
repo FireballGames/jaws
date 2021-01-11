@@ -1,16 +1,10 @@
 import pygame
 
-from config.globals import BLOCK
+from config import MAIN_WIDTH, MAIN_HEIGHT, X_BOUNDS, Y_BOUNDS
 from data.game_map import GAME_MAP
 from sprites.brody import Brody
 from tiles.barrier import Tile
 from tiles.background import Background
-
-MAIN_WIDTH = BLOCK * 32
-MAIN_HEIGHT = BLOCK * 20
-
-X_BOUNDS = (0, 32 * BLOCK)
-Y_BOUNDS = (0, 20 * BLOCK)
 
 
 class Field(pygame.sprite.Group):

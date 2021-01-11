@@ -1,7 +1,7 @@
 import os
 import pygame
 
-from config.globals import BLOCK, RES_ROOT
+from config import BRODY_WIDTH, BRODY_HEIGHT, BRODY_X, BRODY_Y, RES_ROOT
 from resource.jaws import JawsResources
 
 
@@ -13,8 +13,8 @@ class Brody(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.width = 2 * BLOCK
-        self.height = 2 * BLOCK
+        self.width = BRODY_WIDTH
+        self.height = BRODY_HEIGHT
 
         self.direction = LEFT
 
@@ -25,7 +25,7 @@ class Brody(pygame.sprite.Sprite):
         self.base_image = pygame.image.load(os.path.join(RES_ROOT, "brody.png"))
         self.image = self.base_image
 
-        self.rect = pygame.Rect((15 * BLOCK, BLOCK, self.width, self.height))
+        self.rect = pygame.Rect((BRODY_X, BRODY_Y, self.width, self.height))
         self.movement = (0, 0)
 
     def update(self, field=None, *args):

@@ -2,7 +2,7 @@
 """
 Used to run game
 """
-from jaws import Jaws
+from jaws.jaws import Jaws
 
 
 def main():

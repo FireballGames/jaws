@@ -1,4 +1,4 @@
-from config.globals import CAPTION, FPS
+from config import CAPTION, FPS
 from game.game import Game
 
 from screens import Intro, Title

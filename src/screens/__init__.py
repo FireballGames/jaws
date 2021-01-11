@@ -7,7 +7,7 @@ from game.screen import Screen
 from controls.fade import Fade
 from controls.menu import Menu, MenuItem
 
-from config.globals import BLOCK
+from config import INTRO_POS
 from screens.main import MainScreen
 
 from resource.jaws import JawsResources
@@ -18,7 +18,7 @@ class Intro(Screen):
     def __init__(self, game):
         super().__init__(game)
 
-        self.pos = (0, 4 * BLOCK)
+        self.pos = INTRO_POS
         self.ms = MainScreen()
 
         self.paused = False
