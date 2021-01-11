@@ -160,14 +160,19 @@ class Title(Screen):
 
         # Control fade in/out, look for end game cues
         self.fade.update()
-        if self.fade.direction == 'in' and (self.start_game or self.continue_game):
+
+        if self.fade.direction == self.fade.FADE_IN and (self.start_game or self.continue_game):
             self.fade.fade_out(True)
-        if self.fade.finished_out and self.start_game:
+
+        if not self.fade.has_finished:
+            return
+
+        if self.start_game:
             print("START")
             # self.h_progress_data.Reset
             self.game.set_scene('intro', *self.intro.data())
             # self.director.change_scene('maingame', [True, "level_explore_001"])
-        elif self.fade.finished_out and self.continue_game:
+        elif self.continue_game:
             print("CONTINUE")
             # self.h_progress_data.LoadProgressData()
             # self.director.change_scene('maingame', [True, self.h_progress_data.current_level])

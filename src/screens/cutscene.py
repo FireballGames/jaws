@@ -76,20 +76,20 @@ class CutScene(Screen):
         self.fade.update()
         self.fade_text.update()
 
-        if self.fade.direction == 'in' and self.fade.finished_in and not self.fade_text.running:
+        if self.fade.direction == self.fade.FADE_IN and self.fade.has_finished and not self.fade_text.is_running:
             if len(self.sequence[self.step][1]) > 0:
                 self.text_step = 0
                 self.fade_text.fade_in()
 
         if self.go_next:
             if len(self.sequence[self.step][1]) > 0:  # any text?
-                if self.fade.direction == 'in' and self.fade_text.direction == 'in' and self.fade_text.running:
+                if self.fade.direction == self.fade.FADE_IN and self.fade_text.direction == self.fade.FADE_IN and self.fade_text.is_running:
                     self.fade_text.fade_out()
             else:
                 self.fade.fade_out()
             self.go_next = False
 
-        if self.fade_text.finished_out:  # next text
+        if self.fade_text.has_finished:  # next text
             self.fade_text.reset()
             self.text_step += 1
             if self.text_step == len(self.sequence[self.step][1]):
@@ -101,7 +101,7 @@ class CutScene(Screen):
             else:
                 self.fade_text.fade_in()
 
-        if self.fade.finished_out:  # next cut
+        if self.fade.has_finished:  # next cut
             self.step += 1
             if self.step == len(self.sequence):
                 print("Next:", self.next_scene_type, self.next_scene_options)

@@ -2,63 +2,97 @@ import pygame
 
 
 class Fade:
+    """Fade control.
+
+    Attributes:
+        duration (int): Fade duration
+        smooth (bool): Smooth fade
+        direction ('in'|'out'): Fade direction
+        ticks (int): Ticks to fade
+        has_finished (bool): Fade has finished
+        is_running (bool): Fade is running
+        alpha (int): Alpha level of surface to fade
+        music (bool): ...
+
+    """
+
+    FADE_IN = 'in'  #: Direction to fade in
+    FADE_OUT = 'out'  #: Direction to fade out
+
     def __init__(self, ticks, smooth=False):
-        self.ticks = ticks
-        self.smooth = smooth
+        """Initialize fade.
+
+        Args:
+            ticks (int): Ticks to fade.
+            smooth (bool, optional): Smooth fade.
+
+        """
+        self.__duration = ticks
+        self.__smooth = smooth
 
         self.direction = None
-        self.ticks_elapsed = 0
-        self.finished_in = False
-        self.finished_out = False
-        self.running = False
+        self.__ticks = 0
+        self.has_finished = False
+        self.is_running = False
         self.alpha = 255
-        self.music_fade = False
+        self.__music = False
+
+    def __next_tick(self, direction):
+        self.__ticks += 1
+
+        if self.__ticks > self.__duration:
+            self.has_finished = True
+            return
+
+        if self.__smooth:
+            value = self.__ticks
+        else:
+            value = 5 * (self.__ticks / 5)
+
+        if direction == self.FADE_IN:
+            progress = 1.0 - (value / float(self.__duration))
+        elif direction == self.FADE_OUT:
+            progress = value / float(self.__duration)
+        else:
+            progress = 0
+
+        self.alpha = 255 * progress
+        if self.__music:
+            pygame.mixer.music.set_volume(0.5 * progress)
 
     def update(self):
-        if not self.running:
+        """Update fade.
+
+        """
+
+        if not self.is_running:
             return
-        if self.direction == 'in' and not self.finished_in:
-            self.ticks_elapsed += 1
-            if self.ticks_elapsed > self.ticks:
-                self.finished_in = True
-            else:
-                if self.smooth:
-                    self.alpha = 255 * (1.0 - (self.ticks_elapsed / float(self.ticks)))
-                else:
-                    self.alpha = 255 * (1.0 - ((5 * (self.ticks_elapsed / 5)) / float(self.ticks)))
-        elif self.direction == 'out' and not self.finished_out:
-            self.ticks_elapsed += 1
-            if self.ticks_elapsed > self.ticks:
-                self.finished_out = True
-            else:
-                if self.smooth:
-                    self.alpha = 255 * (self.ticks_elapsed / float(self.ticks))
-                else:
-                    self.alpha = 255 * ((5 * (self.ticks_elapsed / 5)) / float(self.ticks))
-                if self.music_fade:
-                    pygame.mixer.music.set_volume(0.5 * (1.0 - (self.ticks_elapsed / float(self.ticks))))
 
-    def fade_in(self):
-        self.direction = 'in'
-        self.ticks_elapsed = 0
-        self.finished_in = False
-        self.finished_out = False
-        self.running = True
+        if self.has_finished:
+            return
+
+        return self.__next_tick(self.direction)
+
+    def fade_in(self, music=False):
+        self.direction = self.FADE_IN
+        self.__ticks = 0
+        self.has_finished = False
+        self.is_running = True
         self.alpha = 255
+        self.__music = music
 
-    def fade_out(self, music_fade=False):
-        self.direction = 'out'
-        self.ticks_elapsed = 0
-        self.finished_in = False
-        self.finished_out = False
-        self.running = True
-        self.music_fade = music_fade
+    def fade_out(self, music=False):
+        self.direction = self.FADE_OUT
+        self.__ticks = 0
+        self.has_finished = False
+        self.is_running = True
+        self.alpha = 0
+        self.__music = music
 
     def reset(self):
         self.direction = None
-        self.ticks_elapsed = 0
-        self.finished_in = False
-        self.finished_out = False
-        self.running = False
-        self.alpha = 255
-        self.music_fade = False
+        self.__ticks = 0
+        self.__has_finished = False
+        self.__is_running = False
+        self.__alpha = 255
+        self.__music = False

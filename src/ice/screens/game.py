@@ -160,15 +160,15 @@ class MainGame(SizedScene):
 
         # Control fade in/out, look for end game cues
         self.fade.update()
-        if self.tiled_layers.exiting and self.fade.direction == 'in':
+        if self.tiled_layers.exiting and self.fade.direction == self.fade.FADE_IN:
             if not self.current_music == Resources.initleveldata[self.tiled_layers.destination].music:
                 music_fade = True
             else:
                 music_fade = False
             self.fade.fade_out(music_fade)
-        if self.submarine.death_to == 0 and self.fade.direction == 'in':
+        if self.submarine.death_to == 0 and self.fade.direction == self.fade.FADE_IN:
             self.fade.fade_out()
-        if self.fade.finished_out:
+        if self.fade.has_finished:
             if self.submarine.death_to == 0:
                 self.director.set_scene('maingame', True, self.tiled_layers.level_id)
             else:

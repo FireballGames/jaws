@@ -166,13 +166,18 @@ class TitleScreen(SizedScene):
 
         # Control fade in/out, look for end game cues
         self.fade.update()
-        if self.fade.direction == 'in' and (self.start_game or self.continue_game):
+
+        if self.fade.direction == self.fade.FADE_IN and (self.start_game or self.continue_game):
             self.fade.fade_out(True)
-        if self.fade.finished_out and self.start_game:
+
+        if not self.fade.has_finished:
+            return
+
+        if self.start_game:
             self.progress_data.reset()
             # self.director.change_scene('introcutscene', resources.introcutscene_data)
             self.director.set_scene('maingame', True, "level_explore_001")
-        elif self.fade.finished_out and self.continue_game:
+        elif self.continue_game:
             self.progress_data.load()
             self.director.set_scene('maingame', True, self.progress_data.current_level)
 
@@ -261,18 +266,20 @@ class CutScene(SizedScene):
         self.fade.update()
         self.fade_text.update()
 
-        if self.fade.direction == 'in' and self.fade.finished_in and not self.fade_text.running:
+        if self.fade.direction == self.fade.FADE_IN and self.fade.has_finished and not self.fade_text.running:
             if len(self.sequence[self.step][1]) > 0:
                 self.text_step = 0
                 self.fade_text.fade_in()
+
         if self.go_next:
             if len(self.sequence[self.step][1]) > 0:  # any text?
-                if self.fade.direction == 'in' and self.fade_text.direction == 'in' and self.fade_text.running:
+                if self.fade.direction == self.fade.FADE_IN and self.fade_text.direction == self.fade.fade_out and self.fade_text.is_running:
                     self.fade_text.fade_out()
             else:
                 self.fade.fade_out()
             self.go_next = False
-        if self.fade_text.finished_out:  # next text
+
+        if self.fade_text.has_finished:  # next text
             self.fade_text.reset()
             self.text_step += 1
             if self.text_step == len(self.sequence[self.step][1]):
@@ -283,7 +290,8 @@ class CutScene(SizedScene):
                     self.fade.fade_out()
             else:
                 self.fade_text.fade_in()
-        if self.fade.finished_out:  # next cut
+
+        if self.fade.has_finished:  # next cut
             self.step += 1
             if self.step == len(self.sequence):
                 self.director.set_scene(self.next_scene_type, *self.next_scene_options)

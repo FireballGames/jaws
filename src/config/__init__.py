@@ -1,6 +1,3 @@
-from . import colors as COLORS
-
-
 __BLOCK = 8
 
 INTRO_POS = (0, 4 * __BLOCK)
