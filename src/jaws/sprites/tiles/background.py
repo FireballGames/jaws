@@ -5,7 +5,7 @@ from config import RES_ROOT
 
 
 class Background(pygame.sprite.Sprite):
-    filename = "../../../../res/map.png"
+    filename = "map.png"
 
     def __init__(self):
         super().__init__()

@@ -2,12 +2,14 @@
 """
 Used to run game
 """
-from jaws.jaws import Jaws
+from jaws import Jaws
 
 
 def main():
     game = Jaws()
+    print("Game intialized")
     game.play()
+    print("Game stopped")
     game.stop()
 
 
