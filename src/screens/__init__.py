@@ -92,14 +92,18 @@ class Title(Screen):
         if os.path.isfile(self.save):
             self.button_continue = MenuItem(
                 (pos_h1, 280),
-                self.resource.surfaces['continue_red'],
-                self.resource.surfaces['continue_gold'],
+                {
+                    MenuItem.MENU_ITEM_INACTIVE: self.resource.surfaces['continue_red'],
+                    MenuItem.MENU_ITEM_ACTIVE: self.resource.surfaces['continue_gold'],
+                },
                 self.do_continue_game
             )
             self.button_new = MenuItem(
                 (pos_h2, 320),
-                self.resource.surfaces['newgame_red'],
-                self.resource.surfaces['newgame_gold'],
+                {
+                    MenuItem.MENU_ITEM_INACTIVE: self.resource.surfaces['newgame_red'],
+                    MenuItem.MENU_ITEM_ACTIVE: self.resource.surfaces['newgame_gold'],
+                },
                 self.do_start_game
             )
             self.buttons = [
@@ -109,8 +113,10 @@ class Title(Screen):
         else:
             self.button_new = MenuItem(
                 (pos_h2, 280),
-                self.resource.surfaces['newgame_red'],
-                self.resource.surfaces['newgame_gold'],
+                {
+                    MenuItem.MENU_ITEM_INACTIVE: self.resource.surfaces['newgame_red'],
+                    MenuItem.MENU_ITEM_ACTIVE: self.resource.surfaces['newgame_gold'],
+                },
                 self.do_start_game
             )
             self.buttons = [

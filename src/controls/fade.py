@@ -92,7 +92,7 @@ class Fade:
     def reset(self):
         self.direction = None
         self.__ticks = 0
-        self.__has_finished = False
-        self.__is_running = False
+        self.has_finished = False
+        self.is_running = False
         self.__alpha = 255
         self.__music = False
