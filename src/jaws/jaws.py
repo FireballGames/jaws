@@ -1,9 +1,10 @@
 from config import CAPTION, FPS
 from game.game import Game
 
-from screens import Intro, Title
-from screens.cutscene import CutScene
-from screens.main import MainScreen
+from .screens.intro import Intro
+from .screens.title import Title
+from .screens.cutscene import CutScene
+from .screens.main import MainScreen
 
 from resource.cutscenes import LogoResource
 
