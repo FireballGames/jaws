@@ -2,9 +2,9 @@ import pygame
 
 from config import MAIN_WIDTH, MAIN_HEIGHT, X_BOUNDS, Y_BOUNDS
 from data.game_map import GAME_MAP
-from sprites.brody import Brody
-from tiles.barrier import Tile
-from tiles.background import Background
+from jaws.sprites.brody import Brody
+from jaws.sprites.tiles.barrier import Tile
+from jaws.sprites.tiles import Background
 
 
 class Field(pygame.sprite.Group):
